@@ -11,6 +11,8 @@ def filter_content(body)
     scripts.remove
     status = body.search("i")
     status.remove
+    tags = body.search(".ptg.mbm.mtw")
+    tags.try(:remove)
   end
   body.try(:content).try(:strip)
 end
@@ -44,7 +46,6 @@ end
 
 region = Region.new
 count = 0
-#happend_at = ""
 url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=dateline&dateline=86400&orderby=dateline"
 linksdoc = Nokogiri::HTML(open(url).read)
 
@@ -53,10 +54,10 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
 
     next unless pd.css("img[alt='attach_img']").first.present?
 
-    name = pd.css('a.xst').first.content
-    user = pd.css('td.by a').first.try(:content)
     category = pd.css("em a").first.try(:content)
     next if category.include? "求购"
+    name = pd.css('a.xst').first.content
+    user = pd.css('td.by a').first.try(:content)
     city = region.filter(name)
 
     pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
@@ -78,7 +79,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     puts "user: " + user
     puts "content: " + content unless content.blank?
     puts "category: " + category
-    puts "price: " + price
+    puts "price: " + price unless price.nil?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
@@ -89,7 +90,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
       entry.happend_at = Time.new
       entry.content = content
       entry.category = category
-      entry.price = price if price.present?
+      entry.price = price unless price.nil?
       entry.city = city if city.present?
       entry.save
 
