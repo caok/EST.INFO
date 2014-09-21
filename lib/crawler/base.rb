@@ -40,6 +40,14 @@ end
 
 def has_imgs?(content)
   return unless content
+
+  if content
+    igs = content.search("ignore_js_op")
+    igs.remove
+    scripts = content.search("script")
+    scripts.remove
+  end
+
   count = 0
   content.css('img').each do |img|
     file = img.attributes["file"]
