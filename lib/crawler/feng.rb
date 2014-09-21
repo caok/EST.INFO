@@ -52,6 +52,7 @@ linksdoc = Nokogiri::HTML(open(url).read)
 linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
   begin
 
+    name = pd.css('a.xst').first.content
     next unless pd.css("img[alt='attach_img']").first.present?
 
     category = pd.css("em a").first.try(:content)
@@ -73,13 +74,13 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     price = content.match(/￥.?\d{1,5}/) if price.blank?
     price = price.to_s.match(/\d{1,}/).to_s if price.present?
 
-    puts "---------------------------------------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "content: " + content unless content.blank?
-    puts "category: " + category
-    puts "price: " + price unless price.nil?
+    #puts "---------------------------------------------------------------"
+    #puts "name: " + name
+    #puts "product link: " + pd_link
+    #puts "user: " + user
+    #puts "content: " + content unless content.blank?
+    #puts "category: " + category
+    #puts "price: " + price unless price.nil?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
