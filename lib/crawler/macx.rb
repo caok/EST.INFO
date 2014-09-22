@@ -8,12 +8,14 @@ def filter_content(body)
     igs.remove
     scripts = body.search("script")
     scripts.remove
+    status = body.search("i.pstatus")
+    status.remove
   end
   body.try(:content).try(:strip)
 end
 
 def handle_img_link(entry, doc)
-  html = fetch_body(doc, ".v2-t_fsz td.t_f").inner_html
+  html = fetch_body(doc, "div.v2-t_fsz").inner_html
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
@@ -58,14 +60,13 @@ linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
     pd_link = pd.css('h3.ptn a').first.attributes["href"].value
     doc = get_doc(pd_link)
 
-    body = fetch_body(doc.dup, "div.pcb")
+    body = fetch_body(doc.dup, "div.typeoption")
+    sketch = filter_content(body) 
+    city = sketch.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
+    price = sketch.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
+
+    body = fetch_body(doc.dup, "div.v2-t_fsz")
     next unless has_imgs?(body)
-
-    content = filter_content(body) 
-    city = content.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
-    price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
-
-    body = fetch_body(doc.dup, ".v2-t_fsz td.t_f")
     content = filter_content(body)
 
     #puts "-----------------------------------------------"
@@ -75,7 +76,6 @@ linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
     #puts "price: " + price
     #puts "happend_at: " + happend_at
     #puts "content: " + content unless content.blank?
-    #puts 
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?

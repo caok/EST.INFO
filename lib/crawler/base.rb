@@ -40,6 +40,7 @@ end
 
 def has_imgs?(content)
   return unless content
+
   count = 0
   content.css('img').each do |img|
     file = img.attributes["file"]
