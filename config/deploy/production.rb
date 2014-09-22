@@ -25,12 +25,12 @@ server '162.243.236.79', user: 'estao', roles: %w{web app}, my_property: :my_val
 #
 # Global options
 # --------------
-#  set :ssh_options, {
-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
-#    forward_agent: false,
-#    auth_methods: %w(password)
-#  }
-#
+set :ssh_options, {
+  keys: %w(/home/estao/.ssh/id_rsa),
+  forward_agent: false,
+  auth_methods: %w(publickey)
+}
+
 # And/or per server (overrides global)
 # ------------------------------------
 # server 'example.com',
