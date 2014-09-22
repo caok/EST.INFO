@@ -1,7 +1,8 @@
 class ChangePriceToInteger < ActiveRecord::Migration
   def up
     Entry.all.each do |e|
-      e.price = e.price.to_s.match(/\d{1,}/).to_s
+      price = e.price.to_s.match(/\d{1,}/).to_s
+      e.update(price: price) if e.price.to_i != price.to_i
     end
 
     change_column :entries, :price, 'integer USING CAST(price AS integer)'
