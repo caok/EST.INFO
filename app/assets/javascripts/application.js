@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require vendor
+//= require chartkick
 //= require common
 //= require_tree .

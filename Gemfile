@@ -27,6 +27,10 @@ gem 'neat'
 gem 'qiniu', '~> 6.3.1'
 gem 'newrelic_rpm'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
+gem "chartkick"
+gem "groupdate"
+gem "active_median"
+gem "pg"
 
 group :development do
   gem 'thin'
@@ -36,7 +40,6 @@ group :development do
   gem 'pry'
   gem 'pry-nav'
   gem 'spring'
-  gem 'sqlite3'
   gem 'refills'
   gem 'capistrano', '~> 3.2.1'
   gem 'capistrano-rvm'
@@ -45,7 +48,6 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
   gem 'unicorn'
   gem 'exception_notification'
 end

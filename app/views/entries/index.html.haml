@@ -1,3 +1,6 @@
+- if params[:q].present?
+  .histroy
+    = line_chart(@history_prices, discrete: true)
 .entries
   = render @entries
 
