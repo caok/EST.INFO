@@ -12,6 +12,10 @@ set :user, "estao"
 set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
 set :use_sudo, false
 
+set :ssh_options, {
+  forward_agent: true
+}
+
 # Default value for :scm is :git
 set :scm, :git
 
