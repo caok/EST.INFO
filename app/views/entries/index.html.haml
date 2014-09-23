@@ -1,6 +1,8 @@
 - if params[:q].present?
   .histroy
-    = line_chart(@history_prices, discrete: true)
+    = line_chart [{name: "最高价", data: @history_prices[:max]},
+      {name: "最低价", data: @history_prices[:min]}],
+      library: {yAxis: {gridLineDashStyle: 'longdash'}, xAxis: {labels: {enabled: false}}}
 .entries
   = render @entries
 
