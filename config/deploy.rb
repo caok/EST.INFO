@@ -5,7 +5,7 @@ set :application, 'estao'
 set :repo_url, 'git@bitbucket.org:xiongbo027/estao.info.git'
 
 # Default branch is :master
-ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
+#ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 set :user, "estao"
 # Default deploy_to directory is /var/www/my_app
@@ -31,7 +31,7 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
 set :rails_env, 'production'
-set :deploy_via, :remote_cache
+#set :deploy_via, :remote_cache
 set :unicorn_config_path, -> { File.join(current_path, "config", "unicorn.rb") }
 
 # for whenever
