@@ -39,7 +39,6 @@ rescue => e
 end
 
 count = 0
-happend_at = ""
 url = "http://bbs.imp3.net/forum.php?mod=forumdisplay&fid=63&orderby=dateline&filter=dateline&dateline=86400&orderby=dateline"
 linksdoc = Nokogiri::HTML(open(url))
 
@@ -49,7 +48,6 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
 
     next unless pd.css("img[alt='attach_img']").first.present?
 
-    happend_at = pd.css('span.xi1').first.content
     name = pd.css("a.s.xst").first.content
     user = pd.css('cite a').first.content
     category = pd.css("em a").first.try(:content)
