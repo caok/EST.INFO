@@ -1,7 +1,7 @@
 require 'qiniu'
 require 'yaml'
 class Entry < ActiveRecord::Base
-  default_scope { order('id DESC') }
+  default_scope { where("happend_at >= ?", 60.day.ago) }
   scope :today, -> { where(happend_at: Time.new.beginning_of_day()..Time.new.end_of_day()) }
   scope :legacy, -> { where("created_at < ?", Time.now.beginning_of_month()) }
   scope :not_deleted, -> { where.not(status: Entry.statuses[:deleted]) }
