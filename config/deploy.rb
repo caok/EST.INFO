@@ -2,7 +2,8 @@
 lock '3.2.1'
 
 set :application, 'estao'
-set :repo_url, 'git@bitbucket.org:xiongbo027/estao.info.git'
+#set :repo_url, 'git@bitbucket.org:xiongbo027/estao.info.git'
+set :repo_url, 'https://bitbucket.org/xiongbo027/estao.info.git'
 
 # Default branch is :master
 #ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

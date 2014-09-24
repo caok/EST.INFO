@@ -26,9 +26,9 @@ server 'estao.info', user: 'estao', roles: %w{web app}, my_property: :my_value
 # Global options
 # --------------
 set :ssh_options, {
-  keys: %w(/home/estao/.ssh/id_rsa),
+  #keys: %w(/home/estao/.ssh/id_rsa),
   forward_agent: true,
-  auth_methods: %w(publickey)
+  #auth_methods: %w(publickey)
 }
 
 # And/or per server (overrides global)
