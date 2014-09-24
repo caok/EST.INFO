@@ -1,7 +1,8 @@
 # keyboard binding for navigate
 
-# next
+# next 
 KeyboardJS.on 'j', ->
+  return if $("input#entry_name").focus()
   selected = $(".selected")
   if selected.length > 0
     if selected.attr("id") == $(".entry").last().attr("id")
@@ -20,6 +21,7 @@ KeyboardJS.on 'shift + j', ->
 
 # prev
 KeyboardJS.on 'k', ->
+  return if $("input#entry_name").focus()
   selected = $(".selected")
   if selected.length > 0
     if selected.attr("id") == $(".entry").first().attr("id")
@@ -36,24 +38,28 @@ KeyboardJS.on 'shift + k', ->
 
 # open
 KeyboardJS.on 'o', ->
+  return if $("input#entry_name").focus()
   selected = $(".selected")
   if selected.length > 0
     selected.trigger("open.entry")
 
 # close
 KeyboardJS.on 'c', ->
+  return if $("input#entry_name").focus()
   selected = $(".selected")
   if selected.length > 0
     selected.trigger("select.entry")
 
 # top
 KeyboardJS.on 'h', ->
+  return if $("input#entry_name").focus()
   selected = $(".selected")
   selected.removeClass("selected")
   $(".entry").first().trigger("select.entry")
 
 # bottom
 KeyboardJS.on 'l', ->
+  return if $("input#entry_name").focus()
   selected = $(".selected")
   selected.removeClass("selected")
   $(".entry").last().trigger("select.entry")
