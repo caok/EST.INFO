@@ -15,7 +15,8 @@ role :db,  %w{estao@estao.info}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server 'estao.info', user: 'estao', roles: %w{web app}, my_property: :my_value
+set :password, ask('Server password', nil)
+server 'estao.info', user: 'estao', port: 22, password: fetch(:password), roles: %w{web app}, my_property: :my_value
 
 
 # Custom SSH Options
@@ -25,11 +26,11 @@ server 'estao.info', user: 'estao', roles: %w{web app}, my_property: :my_value
 #
 # Global options
 # --------------
-set :ssh_options, {
+#set :ssh_options, {
+  #forward_agent: true,
   #keys: %w(/home/estao/.ssh/id_rsa),
-  forward_agent: true,
   #auth_methods: %w(publickey)
-}
+#}
 
 # And/or per server (overrides global)
 # ------------------------------------

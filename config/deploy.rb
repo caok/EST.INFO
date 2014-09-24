@@ -2,8 +2,7 @@
 lock '3.2.1'
 
 set :application, 'estao'
-#set :repo_url, 'git@bitbucket.org:xiongbo027/estao.info.git'
-set :repo_url, 'https://caok:clark#88@bitbucket.org/xiongbo027/estao.info.git'
+set :repo_url, 'git@bitbucket.org:xiongbo027/estao.info.git'
 
 # Default branch is :master
 #ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -24,6 +23,8 @@ set :scm, :git
 
 # Default value for :pty is false
 # set :pty, true
+
+set :ssh_options, { :forward_agent => true }
 
 set :linked_files, %w{config/database.yml config/application.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/pd_images public/en_images}
