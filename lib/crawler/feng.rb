@@ -68,10 +68,14 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     content = filter_content(body)
 
     price = content.match(/现在.?\d{1,5}/)
-    price = content.match(/价.?\d{1,5}/) if price.blank?
     price = content.match(/价格.?\d{1,5}/) if price.blank?
-    price = content.match(/\d{1,5}元/) if price.blank?
+    price = content.match(/价.?\d{1,5}/) if price.blank?
+    price = content.match(/\d{1,5}.?元/) if price.blank?
+    price = content.match(/\d{1,5}.?出/) if price.blank?
+    price = content.match(/\d{1,5}.?包邮/) if price.blank?
+    price = content.match(/\d{1,5}.?可刀/) if price.blank?
     price = content.match(/￥.?\d{1,5}/) if price.blank?
+    price = content.match(/\d{1,5}.?R/) if price.blank?
     price = price.to_s.match(/\d{1,}/).to_s if price.present?
 
     #puts "---------------------------------------------------------------"
