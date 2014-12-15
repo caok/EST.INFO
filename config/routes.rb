@@ -8,4 +8,5 @@ Rails.application.routes.draw do
 
   #home
   get '/disqus', to: "home#disqus"
+  get 'home/clean_delayed_jobs', to: "home#clean_delayed_jobs", as: :clean_delayed_jobs
 end
