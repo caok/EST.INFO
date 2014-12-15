@@ -64,15 +64,6 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     body = fetch_body(doc.dup, ".t_fsz")
     content = filter_content(body)
 
-    puts "------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "price: " + price
-    puts "city: " + city
-    puts "content: " + content
-    puts "catetory: " + category
-
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
       TwitterBot.delay(run_at: (index*20).seconds.from_now).tweet(name, price, pd_link)

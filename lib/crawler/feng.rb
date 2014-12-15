@@ -78,14 +78,6 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     price = content.match(/\d{1,5}.?R/) if price.blank?
     price = price.to_s.match(/\d{1,}/).to_s if price.present?
 
-    #puts "---------------------------------------------------------------"
-    #puts "name: " + name
-    #puts "product link: " + pd_link
-    #puts "user: " + user
-    #puts "content: " + content unless content.blank?
-    #puts "category: " + category
-    #puts "price: " + price unless price.nil?
-
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
       TwitterBot.delay(run_at: (index*10).seconds.from_now).tweet(name, nil, pd_link)

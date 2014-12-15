@@ -64,17 +64,6 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
     price = /(\d+)/.match(price)[0] 
     category = fetch_body(doc, ".cr_date font").content.strip
 
-
-    puts "------------------------------"
-    puts "name: " + name
-    puts "content: " + content
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "price: " + price
-    puts "city: " + city
-    puts "happend_at: " + happend_at
-    puts "category: " + category
-
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
       TwitterBot.delay(run_at: (index*20).seconds.from_now).tweet(name, price, pd_link)

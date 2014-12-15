@@ -69,14 +69,6 @@ linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
     next unless has_imgs?(body)
     content = filter_content(body)
 
-    #puts "-----------------------------------------------"
-    #puts "name: " + name
-    #puts "product link: " + pd_link if pd_link
-    #puts "city: " + city
-    #puts "price: " + price
-    #puts "happend_at: " + happend_at
-    #puts "content: " + content unless content.blank?
-
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
       TwitterBot.delay(run_at: (index*30).seconds.from_now).tweet(name, price, pd_link)
