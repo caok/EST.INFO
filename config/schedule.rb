@@ -24,3 +24,7 @@ every '0 2 1 * *' do
   runner "Entry.clean"
 end
 
+every 1.day, :at => '1:30 am' do
+  command "cd /home/estao/apps/estao/shared/public/en_images && find . -mtime +10 -type f | xargs rm -rf --silent >> log/cron.log 2>&1"
+  command "cd /home/estao/apps/estao/shared/public/pd_images && find . -mtime +10 -type f | xargs rm -rf --silent >> log/cron.log 2>&1"
+end
