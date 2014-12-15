@@ -2,7 +2,7 @@ zh-CN:
   activerecord:
     models:
       admin_user: "管理员"
-      entry: "entry"
+      entry: "条目"
       user: "用户"
     attributes:
       admin_user:
@@ -11,8 +11,14 @@ zh-CN:
         password_confirmation: "确认密码"
         remember_me: "记住我"
         sign_in_count: "登录次数"
-        current_sign_in_at: "此次登录时间"
         last_sign_in_at: "上次登录时间"
+        current_sign_in_at: "当前登录时间"
+        current_sign_in_ip: "当前登录ip"
+        last_sign_in_at: "上次登录时间"
+        last_sign_in_ip: "上次登录ip"
+        sign_in_count: "登录次数"
+        created_at: "创建时间"
+        updated_at: "更新时间"
       entry:
         name: "品名"
         content: "内容"
@@ -23,6 +29,9 @@ zh-CN:
         price: "价格"
         city: "城市"
         source: "来源"
+        category: "类别"
+        status: "状态"
+        img_name: "图片名"
         created_at: "创建时间"
         updated_at: "更新时间"
       user:
