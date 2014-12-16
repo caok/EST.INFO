@@ -66,7 +66,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay(run_at: (index*20).seconds.from_now).tweet(name, price, pd_link)
+      TwitterBot.delay(run_at: (index*20).seconds.from_now, queue: "twitter").tweet(name, price, pd_link)
       entry.name= name
       entry.content = content
       entry.user = user
@@ -79,7 +79,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
 
       handle_img_link(entry, doc.dup)
       update_entry_img(entry)
-      entry.delay.upload_to_qiniu
+      entry.delay(queue: "image").upload_to_qiniu
       count += 1
     end
     sleep 8

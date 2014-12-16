@@ -71,7 +71,7 @@ linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay(run_at: (index*30).seconds.from_now).tweet(name, price, pd_link)
+      TwitterBot.delay(run_at: (index*30).seconds.from_now, queue: "twitter").tweet(name, price, pd_link)
       entry.name= name
       entry.source = "macx"
       entry.happend_at = Time.new
@@ -82,7 +82,7 @@ linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
 
       handle_img_link(entry, doc.dup)
       update_entry_img(entry)
-      entry.delay.upload_to_qiniu
+      entry.delay(queue: "image").upload_to_qiniu
       count += 1
     end
   rescue => e

@@ -47,7 +47,7 @@ body.each_with_index do |pd, index|
     break unless happend_at.strftime('%Y-%m-%d') == Date.today.strftime('%Y-%m-%d')
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay(run_at: (index*40).seconds.from_now).tweet(name, nil, pd_link)
+      TwitterBot.delay(run_at: (index*40).seconds.from_now, queue: "twitter").tweet(name, nil, pd_link)
       entry.name= name
       entry.user = pd["member"]["username"]
       entry.content = pd["content_rendered"] || ""
@@ -57,7 +57,7 @@ body.each_with_index do |pd, index|
 
       handle_img_link(entry, content_rendered)
       update_entry_img(entry)
-      entry.delay.upload_to_qiniu
+      entry.delay(queue: "image").upload_to_qiniu
       count += 1
     end
     sleep 3
