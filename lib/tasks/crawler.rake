@@ -28,4 +28,17 @@ namespace :crawler do
   task :imp3 do
     ruby "./lib/crawler/imp3.rb"
   end
+
+  desc "crawling frequently"
+  task :frequently do
+    ruby "./lib/crawler/feng.rb"
+    ruby "./lib/crawler/imp3.rb"
+    ruby "./lib/crawler/dgtle.rb"
+  end
+
+  desc "crawling sometimes"
+  task :sometime do
+    ruby "./lib/crawler/v2ex.rb"
+    ruby "./lib/crawler/macx.rb"
+  end
 end
